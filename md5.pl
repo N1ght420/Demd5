@@ -50,7 +50,7 @@ sub banner {
 }
 
 banner();
-print "\n$yellow //$white Start Bruteforcing $md5\n";
+print "\n$yellow //$white Start Bruteforcing $cyan$md5\n\n";
 sleep(1);
 
 for (my $x=$min;$x<=$max;$x++){
@@ -78,8 +78,7 @@ sub crack{
     for (my $i =0;$i<$CharSet;$i++){
       if ($RawString[$i] > length($alpha)-1){
         if ($i==$CharSet-1){
-          print "\n$yellow //$white Bruteforcing done with max $CharSet Chars";
-          print "\n$yellow //$white No results\n\n";
+          print "\r$yellow //$white Bruteforcing done with max $CharSet Chars, No results\n\n";
           return false;
         }
         $RawString[$i+1]++;
@@ -93,14 +92,13 @@ sub crack{
     $Stop = gettimeofday();
     if ($Stop-$Start>$dbgtmr){
       $cnt = int($cnt/$dbgtmr);
-      print "\n$yellow //$white $cnt hashes/sec";
-      print "\n$yellow //$white Last Text : $ret\n\n";
+      print "$yellow //$white $cnt hashes/sec\r";
       $cnt=0;
       $Start = gettimeofday();
     }
-    print "$cyan $hash$white [$red $ret$white ]\n";
+    print "$cyan $hash$white [$red $ret$white ]\r";
     if ($md5 eq $hash){
-      die "\n$cyan [+]$white Text$red :$white $ret\n";
+      die "\n\n$cyan [+]$white Result$red :$white $ret\n";
     }
     $RawString[0]++;
   } while ($RawString[$CharSet-1]<length($alpha));
